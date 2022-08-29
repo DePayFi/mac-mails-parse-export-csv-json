@@ -42,7 +42,7 @@ columns = [
 
 ## Todo
 
-- [ ] Add option: Split multiple email addresses into separate data rows (1 email = 1..* rows)
+- [ ] Add option: Split multiple recipient email addresses into separate data rows (1 email = 1..* rows). Currently: 1 row = 1 email, recipient email addresses are comma-separated
 - [ ] Improve date parsing (minor bugs)
 - [ ] Export json option
 - [ ] Improve reliability for recurring use
