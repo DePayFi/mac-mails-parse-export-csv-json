@@ -1,5 +1,5 @@
 # Mac OS Mail - Email Extractor 
-## Mail App Emails to CSV or JSON)
+## Mail App Emails to CSV or JSON
 
 **What it (currently) does:**
 
