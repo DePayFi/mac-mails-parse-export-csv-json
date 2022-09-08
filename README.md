@@ -80,7 +80,7 @@ python3 mac-os-extract-mails.py
 
 ```
 
-## Todo
+## Todos
 
 - [x] Plaintext mode
 - [x] Emlx mode
