@@ -12,3 +12,4 @@ legacy/
 *cache*
 *vscode*
 utils/.DS_Store
+.DS_Store
