@@ -1,4 +1,14 @@
 !/.gitignore
 input*
 venv/
-output.csv
+output*.csv
+input_inbox.txt
+input_sent.txt
+outputs/*
+xconfig.py
+legacy/
+*launch.*
+.config*
+*cache*
+*vscode*
+utils/.DS_Store
