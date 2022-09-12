@@ -31,7 +31,7 @@ class Dates:
             self.dt_str = re.sub("date:\s|sent:\s","",self.dt_str,flags=re.IGNORECASE)
             self.dt_str = re.sub("arrival-","",self.dt_str)
         except Exception as e:
-            print(e)        
+            print("\n⚠️:",e)        
 
         tmp_dates = []
         if "CEST" in self.dt_str:
@@ -53,25 +53,22 @@ class Dates:
                 break
 
             except Exception as e:
-                print(e)
+                print("\n⚠️:",e)
         if not found_date:
             for tmp_date in tmp_dates:
 
                 for format_str in self.alt_time_formats:
                     try:
                         found_date = datetime.strptime(tmp_date, format_str)
-                        #print("found date:",found_date)
                         break
                     except Exception as e:
-                        print(e)
+                        print("\n⚠️:",e)
                         continue
         try:
             self.date_iso = found_date.isoformat()
-            #print("found iso date:",self.date_iso)
         except Exception as e:
-            print(e)
+            print("\n⚠️:",e)
         try:
             self.date_utc = calendar.timegm(found_date.utctimetuple())
-            #print("found utc date:",self.date_utc)
         except Exception as e:
-            print(e)
+            print("\n⚠️:",e)

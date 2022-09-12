@@ -1,2 +1,3 @@
 emlx==1.0.4
+pandas==1.4.3
 python_dateutil==2.8.2

@@ -30,7 +30,7 @@ class Body:
             try:
                 self.recording = False
             except Exception as e:
-                print(e)
+                print("\n⚠️:",e)
         
         elif self.recording == True:
             line_tmp = self.clean_line(body_line)
@@ -38,4 +38,4 @@ class Body:
             try:
                 self.body_lines.append(line_tmp)
             except Exception as e:
-                print(e)
+                print("\n⚠️:",e)

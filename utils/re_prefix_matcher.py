@@ -1,15 +1,16 @@
 import re
-from outputs.config.config import prefix_patterns,ignore_line_patterns
+from config.config import ConfigSettings
+#prefix_patterns,ignore_line_patterns
 
 class PrefixMatcher:
-    patterns = None
-    ignore_patterns = None
+    patterns = {}
+    ignore_patterns = []
     last_match = None
 
-    def __init__(self):
-        self.patterns = prefix_patterns
-        self.ignore_patterns = ignore_line_patterns
-    
+    def __init__(self,config_settings):
+        self.patterns = config_settings.prefix_patterns
+        self.ignore_patterns = config_settings.ignore_line_patterns
+        pass
     def get_line_type(self,txt_line):
         # * * * * * * * * * * * * * * * * # 
         assert type(self.patterns) == dict

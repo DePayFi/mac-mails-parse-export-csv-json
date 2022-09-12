@@ -1,44 +1,33 @@
-from distutils.command import config
-from mailbox import Mailbox
-from posixpath import split
-import pprint
-from typing import Tuple
 import traceback
 
-from numpy import sort
+from mailbox import Mailbox
+
 from data_classes.mail import Mail
 from data_classes.mailbox import Mailbox
-from data_classes.from_ import From
 from data_classes.body import Body
-from data_classes.dates import Dates
 
-from utils import *
+from utils.create_outputs import create_outputs
 from utils.get_txt import get_txt
 from utils.re_prefix_matcher import PrefixMatcher
-from config.config import *
 from utils.mail_tuples import mails_to_tuples
 from utils.tuples_to_df import tuples_to_df
-
-pp = pprint.PrettyPrinter(indent=2)
-# - [x] date
-# - [ ] from_mail = from_name wenn from mail == "" und from_name = email addr
-
+from config.config import ConfigSettings
+import os
 
 split_mails, mb = get_txt("input.txt")
-
-
-pm = PrefixMatcher()
+txt_config = ConfigSettings(mode='txt')
+script_loc = os.getcwd()
+pm = PrefixMatcher(txt_config)
 current_mail = Mail(is_emlx=False)
 
 try:
     for idx,mail_original in enumerate(split_mails):
         
-        
         for l_idx,ln_original in enumerate(mail_original):
             ln_type = pm.get_line_type(ln_original)
+            pass
 
             match(ln_type["line_type"]):
-
                 case "ignore":
                     continue
                 
@@ -95,7 +84,9 @@ try:
                         current_mail.body.recording = True
                     except Exception as e:
                         print("error setting date:",e,traceback.format_exc())
-    pass
+        ln_type = None
+        pass
+
 except Exception as e:
     print("error in for loop enumerate(split_mails)",e,traceback.format_exc())
    
@@ -104,10 +95,6 @@ columns = ['date_utc','date_iso','date','from','from_name','from_mail','subject'
 
 tup = mails_to_tuples(mb,False)
 
-df = tuples_to_df(columns, tup)
+df = tuples_to_df(txt_config.output_columns, tup)
 
-df.to_csv(output_folder+"output_sorted.csv", encoding='utf-8', index=False)
-
-df['to_mail'] = df.to_mail.apply(lambda x: str(x).split(','))
-df_exploded = df.assign(to_mail=df['to_mail']).explode('to_mail')
-df_exploded.to_csv(output_folder+"output_sorted_exploded.csv", encoding='utf-8', index=False)
+create_outputs(txt_config, df,mode=txt_config.mode,script_loc=script_loc)

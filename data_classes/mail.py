@@ -60,7 +60,7 @@ class Mail:
                     try:
                         self.body.add_to_body(to_add)
                     except Exception as e:
-                        print(e)
+                        print("\n⚠️:",e)
                 #   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .CASE: from_        
                 case 'from_':
                     if self.is_emlx == True:
@@ -72,20 +72,20 @@ class Mail:
                             try:
                                 to_add = to_add.group(1)
                             except Exception as e:
-                                print(e)
+                                print("\n⚠️:",e)
                             pass
                             self.__setattr__(attr_name,to_add)
                             self.count_pp()
                         except Exception as e:
-                            print("2 - error setting attributes from_mail,from_name:",e,traceback.format_exc())
+                            print("\n⚠️error setting attributes from_mail,from_name:",e,traceback.format_exc())
                     try:
                         from_tmp = From(from_str=str(to_add))
                     except Exception as e:
-                        print(e)
+                        print("\n⚠️:",e)
                     try:
                         self.__setattr__('from_name',from_tmp.from_name)
                     except Exception as e:
-                        print(e)
+                        print("\n⚠️:",e)
                     try:
                         if len(from_tmp.from_mail) == 0 and '@' in self.from_name:
                             self.__setattr__('from_mail',from_tmp.from_name)
@@ -93,7 +93,7 @@ class Mail:
                         else:
                             self.__setattr__('from_mail',from_tmp.from_mail)
                     except Exception as e:
-                        print("1 - error setting attributes from_mail,from_name:",e,traceback.format_exc())
+                        print("\n⚠️error setting attributes from_mail,from_name:",e,traceback.format_exc())
                 
                         
                 #   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .CASE: date
@@ -101,7 +101,7 @@ class Mail:
                     try:
                         date_tmp = Dates(dt_str=to_add)
                     except Exception as e:
-                        print("error setting date_tmp = Dates:",e,traceback.format_exc())
+                        print("\n⚠️error setting date_tmp = Dates:",e,traceback.format_exc())
                     try:    
                         self.__setattr__(attr_name,date_tmp.dt_str)
                         self.count_pp()
@@ -111,7 +111,7 @@ class Mail:
                         self.count_pp()
 
                     except Exception as e:
-                            print("Exception (date_iso):",e)
+                            print("\n⚠️Exception (date_iso):",e)
                 #   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .CASE: to
                 case 'to':
                     try:
@@ -154,11 +154,11 @@ class Mail:
                                 self.__setattr__('to_mail',t_split[1].replace(">","").strip())
                                 pass
                         except Exception as e:
-                            print(e)            
+                            print("\n⚠️:",e)            
                             
                             
                     except Exception as e:
-                        print("error in case 'to':",e,traceback.format_exc())
+                        print("\n⚠️:","error in case 'to':",e,traceback.format_exc())
                 #   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .CASE: subject    
                 case 'subject':
                     try:
@@ -166,7 +166,7 @@ class Mail:
                         self.__setattr__(attr_name,to_add)
                         self.count_pp()
                     except Exception as e:
-                        print("error in case 'subject':",e,traceback.format_exc())
+                        print("\n⚠️error in case 'subject':",e,traceback.format_exc())
                 #   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .CASE: reply-tp
                 case 'reply-to':
                     try:
@@ -174,20 +174,20 @@ class Mail:
                         self.__setattr__(attr_name,to_add)
                         self.count_pp()
                     except Exception as e:
-                        print("error in case 'reply-to':",e,traceback.format_exc())
+                        print("\n⚠️error in case 'reply-to':",e,traceback.format_exc())
                 case 'body':
                     try:
                         Body.add_to_body(self.body,to_add)
                         pass
                     except Exception as e:
-                        print("error adding body (case 'body') in Mail.py",e)
+                        print("\n⚠️error adding body (case 'body') in Mail.py",e)
                 case 'body_emlx' | 'content_type' | 'xuid' | 'mime_version':
                     try:
                         self.__setattr__(attr_name,to_add)
                         pass
                     except Exception as e:
-                        print(e)
+                        print("\n⚠️:",e)
                 
                 
         except Exception as e:
-            print(e)
+            print("\n⚠️:",e)

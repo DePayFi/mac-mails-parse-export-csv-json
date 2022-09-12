@@ -8,10 +8,18 @@ Email Export from Apple's Mail App on Mac OS -> Plaintext input -> Parse/Extract
 *Sometimes it can be handy to get structured data from a mailbox on Mac OS (Mail). This is a quick (still) hacky script which parses a plaintext export email export from the Mail app in Mac OS and returns a structured CSV.*
 
 ## Features
-- Mode: Parse manually exported emails from a txt
-- Mode: Parse emlx files created by the Mail app
-- Different output formats: Saves a sorted (by utc-timestamp) output together with an exploded output based on Email addresses
-- (in progress): custom column outputs based on regular expression matching of defined columns
+- **TXT mode**: Parse manually exported emails from a txt file.
+- **EMXL mode**: Parse emlx files created by the Mail app
+- Export formats & versions per script execution
+  - Export versions
+    - "plain"
+    - "exploded": email addresses are split in case of multiple email recipients, each row contains only one receiving address (all other fields are duplicated)
+  - Formats (for each version)
+    - CSV
+    - JSON
+- Custom Columns based on Regex-extraction:
+  - Custom regex extraction schemes can be defined in `config.py`:
+    ![](assets/custom_regex.png)
 
 ## Input (text file mode)
 1. Select the emails you want to parse in Mac OS Mail (hold shift in order to select multiple, CMD + A in order to select all from the current mailbox)
@@ -36,7 +44,7 @@ python3 extract_txt.py
 ```
 
 or 
-3. run in emlx parser mode:
+1. run in emlx parser mode:
 
 ```
 don't forget to edit config.py first, then execute:
@@ -57,26 +65,32 @@ python3 mac-os-extract-mails.py
 -sodir: select folder for outputs
 ```
 
+## Outputs
+![](assets/output_structure.png)
+
 ## Output Columns
 
 ```
 
-- date-isodate
-- from
-- from_name
-- from_mail
-- subject
-- to
-- to_name
-- to_mail
-- reply_to
-- reply_to_name
-- reply_to_mail
-- content_type
-- message_id
-- mime_version
-- xuid
-- body
+- "date_utc"
+- "date_iso"
+- "date"
+- "from"
+- "from_name"
+- "from_mail"
+- "subject"
+- "to"
+- "to_name"
+- "to_mail"
+- "from"
+- "reply_to"
+- "reply_to_name"
+- "reply_to_mail"
+- "body"
+- "x-universally-unique-identifier"
+- "message-id"
+- "mime-version"
+- "content-type"
 
 ```
 
@@ -85,8 +99,13 @@ python3 mac-os-extract-mails.py
 - [x] Plaintext mode
 - [x] Emlx mode
 - [x] Explode outputs: Split multiple recipient email addresses into separate data rows (1 email = 1..* rows). Currently: 1 row = 1 email, recipient email addresses are comma-separated
-- [ ] Custom columns from RegEx outputs
-- [ ] Refactor code
-- [ ] Export json option
+- [x] Custom columns from RegEx outputs
+- [x] Export json
 - [ ] Command line tool
-- [ ] Add "re_in_subject" column
+- [ ] EMXL mode: Add caching
+- [ ] EMXL mode: Add mailbox folder picker (tkinter?)
+- [ ] TXT mode: Add file picker for input file (+cli path option)
+- [ ] Option: Create Google Sheet from Outputs
+- [ ] Option: Setting utc min-date
+- [ ] Option: Ignore Signatures
+- [ ] Option: Traverse all mbox'es if a mail box for mail account folder is undefined
